@@ -14,3 +14,23 @@ ON course_teacher.teacher_id = teachers.id
 join courses
 ON course_teacher.course_id = courses.id
 WHERE teachers.id = 44
+
+## 4. Selezionare tutti gli studenti con i dati relativi al corso di laurea a cui sono iscritti e il relativo dipartimento, in ordine alfabetico per cognome e nome
+SELECT students.id, students.surname, students.name, students.registration_number, degrees.name as `nome_corso`, departments.name as `Nome Dipartimento`
+FROM students
+JOIN degrees
+ON students.degree_id = degrees.id
+JOIN departments
+ON degrees.department_id = departments.id
+ORDER BY students.surname ASC
+## 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+SELECT  courses.id AS 'course_id', courses.name, courses.description, courses.period, courses.year, courses.cfu, degrees.id AS 'degree_id', degrees.name, degrees.level, degrees.address, degrees.email, teachers.id AS 'teacher_id', teachers.name, teachers.surname, teachers.phone, teachers.email
+FROM courses
+JOIN degrees
+ON courses.degree_id = degrees.id
+JOIN course_teacher
+ON courses.id = course_teacher.course_id
+JOIN teachers
+ON course_teacher.teacher_id = teachers.id
+ORDER BY courses.year ASC
+
